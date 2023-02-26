@@ -4,7 +4,9 @@ const get = document.getElementById('get')
 const post = document.getElementById('post')
 
 get.addEventListener('click', async () => {
-  const res = await fetch(baseUrl)
+  const res = await fetch(`${baseUrl}/?message=`, {
+    headers: { 'x-lang': 'en' },
+  })
   console.log(await res.json())
 })
 

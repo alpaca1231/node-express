@@ -5,7 +5,18 @@ router.use(express.json()) // ブラウザからjsonを受け取るための設�
 
 // GET /api
 router.get('/', (req, res, next) => {
-  res.send({ message: 'Hello' })
+  res.setHeader('X-TimeStamp', Date.now())
+  let message = req.query.message
+  const lang = req.headers['x-lang']
+  if (message === '') {
+    res.status(400)
+    if (lang === 'en') {
+      message = 'Message is empty'
+    } else {
+      message = 'メッセージが空です'
+    }
+  }
+  res.send({ message })
 })
 
 // POST /api
