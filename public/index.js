@@ -1,5 +1,5 @@
 const baseUrl = 'http://localhost:3000/api'
-const crossOriginUrl = 'https://site.example:3000/api'
+const crossOriginUrl = 'http://site.example:3000/api'
 
 const get = document.getElementById('get')
 const post = document.getElementById('post')
@@ -25,8 +25,9 @@ post.addEventListener('click', async () => {
 })
 
 crossOriginGet.addEventListener('click', async () => {
-  const res = await fetch(`${crossOriginUrl}/?message=`, {
-    headers: { 'x-Token': 'aBcDeF1234567890' },
+  const res = await fetch(`${crossOriginUrl}`, {
+    method: 'GET',
+    headers: { 'X-Token': 'aBcDeF1234567890' },
   })
   console.log(await res.json())
 })

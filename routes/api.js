@@ -3,6 +3,14 @@ const router = express.Router()
 
 router.use(express.json()) // ブラウザからjsonを受け取るための設定
 
+router.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Headers', 'X-Token')
+  }
+  next()
+})
+
 // GET /api
 router.get('/', (req, res, next) => {
   res.setHeader('X-TimeStamp', Date.now())
