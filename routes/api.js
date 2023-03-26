@@ -3,10 +3,19 @@ const router = express.Router()
 
 router.use(express.json()) // ブラウザからjsonを受け取るための設定
 
+// 複数のオリジンからのリクエストを許可する場合
+const originList = ['http://localhost:3000', 'http://site.example:3000']
+
 router.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
+  // res.header('Access-Control-Allow-Origin', '*') // クロスオリジンを許可
+  // res.header('Access-Control-Allow-Origin', 'http://localhost:3000') // localhost:3000からのリクエストのみ許可
+
+  // 複数のオリジンからのリクエストを許可する場合
+  if (req.headers.origin && originList.includes(req.headers.origin)) {
+    res.header('Access-Control-Allow-Origin', req.headers.origin) // 指定したオリジンからのリクエストのみ許可
+  }
   if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Headers', 'X-Token')
+    res.header('Access-Control-Allow-Headers', 'X-Token') // クロスオリジンで許可するヘッダー
   }
   next()
 })

@@ -6,10 +6,17 @@ const post = document.getElementById('post')
 const crossOriginGet = document.getElementById('crossOriginGet')
 
 get.addEventListener('click', async () => {
-  const res = await fetch(`${baseUrl}/?message=`, {
-    headers: { 'x-lang': 'en' },
+  // const res = await fetch(`${baseUrl}/?message=`, {
+  //   headers: { 'x-lang': 'en' },
+  // })
+  // console.log(await res.json())
+
+  // クロスオリジンでも同じようにリクエストできる確認のため
+  const res = await fetch(`${baseUrl}`, {
+    method: 'GET',
+    headers: { 'X-Token': 'aBcDeF1234567890' },
   })
-  console.log(await res.json())
+  console.log(res)
 })
 
 post.addEventListener('click', async () => {
@@ -29,5 +36,5 @@ crossOriginGet.addEventListener('click', async () => {
     method: 'GET',
     headers: { 'X-Token': 'aBcDeF1234567890' },
   })
-  console.log(await res.json())
+  console.log(res)
 })
